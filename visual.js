@@ -220,40 +220,30 @@ container.addEventListener("pointerdown", (e) => {
     console.log(e.offsetX, e.offsetY);
   });
   
-  window.addEventListener("resize", () => {
-    updateMap();
-});
-
-function updateMap() {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    let scaleMap = window.innerWidth <= 768 ? 1.0 : 1.5;
-
-    const offsetX = (screenWidth / 2) - (x * scaleMap);
-    const offsetY = (screenHeight / 2) - (y * scaleMap);
-
-    mapInner.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scaleMap})`;
-}
-
-updateMap();
-const x = 546;
-const y = 374;
-const scaleMap = 1.5; 
-
-
-
-if (window.innerWidth <= 768) {
-    scaleMap = 1.0;
-}
-
-const screenWidth = window.innerWidth;
-const screenHeight = window.innerHeight;
-
-const mapWidth = mapImage.clientWidth * scaleMap;
-const mapHeight = mapImage.clientHeight * scaleMap;
-
-const offsetX = (screenWidth / 2) - (x * scaleMap);
-const offsetY = (screenHeight / 2) - (y * scaleMap);
-
-mapInner.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scaleMap})`;
+ const x = 546;
+  const y = 374;
+  
+  function updateMap() {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+  
+      let scaleMap = 1.5;
+  
+      if (screenWidth <= 768) {
+          scaleMap = 1.0;
+      }
+  
+     
+      const centerX = screenWidth / 2;
+      const centerY = screenHeight / 2;
+  
+     
+      const offsetX = centerX - (x * scaleMap);
+      const offsetY = centerY - (y * scaleMap);
+  
+      mapInner.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scaleMap})`;
+  }
+  
+  updateMap();
+  
+  window.addEventListener("resize", updateMap);
